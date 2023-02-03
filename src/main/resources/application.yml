@@ -1,0 +1,40 @@
+server:
+  port: 8080
+
+#数据库连接配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/book_admin?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
+    username: root
+    password: 123456
+
+# MybatisPlus的配置
+mybatis-plus:
+  #MyBatis Mapper 所对应的 XML 文件位置，如果您在 Mapper 中有自定义方法（XML 中有自定义实现），需要进行该配置，告诉 Mapper 所对应的 XML 文件位置。
+  mapper-locations: classpath*:mapper/*.xml
+  #单独的 MyBatis 配置，请将其路径配置到 configLocation 中  注意 configuration与config-location不能一起用
+#  错误原因已经提示的很清楚了 configuration 和 configLocation 不能同时存在 也就是说：在spring的配置文件指定了mybatis的配置文件 就不能在spring的配置里面写入mybatis的配置，所以报错。
+#  config-location: classpath*:mybatis-config.xml
+  # 实体对象的扫描包,MyBaits 别名包扫描路径，通过该属性可以给包中的类注册别名
+#  type-aliases-package: com.song.druid.test.domain
+  configuration:
+    #开启映射时驼峰命名
+    map-underscore-to-camel-case: true
+    #开启控制台 SQL 日志打印
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    auto-mapping-behavior: full
+  global-config:
+    db-config:
+      logic-delete-field: deleted # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+
+
+#查看SQL日志
+logging:
+  level:
+    com:
+      mybatis:
+         mapper: debug
+
