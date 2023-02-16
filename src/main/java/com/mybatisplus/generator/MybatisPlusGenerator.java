@@ -1,5 +1,6 @@
 package com.mybatisplus.generator;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
@@ -56,6 +57,7 @@ public class MybatisPlusGenerator {
                             .enableLombok()//实体类使用lombok,需要自己引入依赖
                             .logicDeleteColumnName("is_del")//逻辑删除字段，使用delete方法删除数据时会将status设置为1。调用update方法时并不会将该字段放入修改字段中，而是在条件字段中
                             .enableTableFieldAnnotation()//加上字段注解@TableField
+                            .idType(IdType.AUTO)
                             .controllerBuilder()
                             .formatFileName("%sController")//控制类名称后缀
                             .enableRestStyle()
