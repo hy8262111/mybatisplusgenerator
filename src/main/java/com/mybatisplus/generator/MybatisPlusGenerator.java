@@ -11,15 +11,15 @@ import java.util.List;
 
 public class MybatisPlusGenerator {
     public static void main(String[] args) {
-        String url = "jdbc:mysql://localhost:3306/book_admin?useUnicode=true&useSSL=false&characterEncoding=utf8";
+        String url = "jdbc:mysql://localhost:3306/flow-engine?useUnicode=true&useSSL=false&characterEncoding=utf8";
         String username = "root";
         String password = "123456";
 
 
         //表名集合
         List<String> tables = new ArrayList<>();
-        tables.add("admin");
-        tables.add("book");
+        tables.add("students");
+//        tables.add("book");
 
         FastAutoGenerator.create(url, username, password)
                 //全局配置
@@ -54,7 +54,7 @@ public class MybatisPlusGenerator {
                             .formatServiceImplFileName("%sServiceImpl")//服务层实现类名后缀
                             .entityBuilder()
                             .enableLombok()//实体类使用lombok,需要自己引入依赖
-                            //.logicDeleteColumnName("status")//逻辑删除字段，使用delete方法删除数据时会将status设置为1。调用update方法时并不会将该字段放入修改字段中，而是在条件字段中
+                            .logicDeleteColumnName("is_del")//逻辑删除字段，使用delete方法删除数据时会将status设置为1。调用update方法时并不会将该字段放入修改字段中，而是在条件字段中
                             .enableTableFieldAnnotation()//加上字段注解@TableField
                             .controllerBuilder()
                             .formatFileName("%sController")//控制类名称后缀
@@ -63,6 +63,8 @@ public class MybatisPlusGenerator {
                             .superClass(BaseMapper.class)
                             .formatMapperFileName("%sMapper")
                             .enableMapperAnnotation()
+                            .enableBaseColumnList()
+                            .enableBaseResultMap()
                             .formatXmlFileName("%sMapper");
                 })
                 .execute();
